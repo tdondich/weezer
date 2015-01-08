@@ -1,0 +1,29 @@
+{
+  "name": "weezer",
+  "version": "1.0.0",
+  "description": "Wrapper around npm that performs node_modules caching",
+  "main": "bin/weezer",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tdondich/weezer.git"
+  },
+  "keywords": [
+    "npm",
+    "node",
+    "nodejs"
+  ],
+  "author": "Taylor Dondich <taylor@dondich.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tdondich/weezer/issues"
+  },
+  "homepage": "https://github.com/tdondich/weezer",
+  "dependencies": {
+    "nopt": "^3.0.1",
+    "npm": "^2.1.17",
+    "npmlog": "^1.0.0"
+  }
+}
