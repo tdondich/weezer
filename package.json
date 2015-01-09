@@ -1,6 +1,10 @@
 {
   "name": "weezer",
   "version": "1.0.0",
+  "preferGlobal": true,
+  "directories": {
+    "bin": "./bin"
+  },
   "description": "Wrapper around npm that performs node_modules caching",
   "main": "bin/weezer",
   "scripts": {
@@ -22,8 +26,10 @@
   },
   "homepage": "https://github.com/tdondich/weezer",
   "dependencies": {
+    "fs-extra": "^0.14.0",
     "nopt": "^3.0.1",
     "npm": "^2.1.17",
-    "npmlog": "^1.0.0"
+    "npmlog": "^1.0.0",
+    "read-package-json": "^1.2.7"
   }
 }

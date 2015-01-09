@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 ;(function () { // wrapper in case we're in module_context mode
 
+var cachePath = "/Users/tdondich/.npm/.weezer/";
+
 // windows: running "npm blah" in this folder will invoke WSH, not node.
 if (typeof WScript !== "undefined") {
   WScript.echo("npm does not work when run\n"
@@ -12,8 +14,7 @@ if (typeof WScript !== "undefined") {
   return
 }
 
-
-process.title = "npm"
+process.title = "weezer"
 
 var log = require("npmlog")
 log.pause() // will be unpaused when config is loaded.
@@ -28,7 +29,7 @@ var path = require("path")
   , shorthands = configDefs.shorthands
   , types = configDefs.types
   , nopt = require("nopt")
-  , intercept = require("intercept-stdout")
+  , weezer = require('../lib/weezer')
 
 // if npm is called as "npmg" or "npm_g", then
 // run in global mode.
@@ -71,7 +72,26 @@ conf._exit = true
 
 npm.load(conf, function (er) {
   if (er) return errorHandler(er)
-  npm.commands[npm.command](npm.argv, errorHandler)
+
+  if(npm.command == "install") {
+    var where = path.resolve(npm.dir, "..");
+    weezer.run(where, npm, function(err) {
+      if(err) {
+        // There was an error.
+        npm.commands['install'](npm.argv, function(err) {
+          if(err) {
+            return errorHandler(err);
+          }
+          // Run post.
+          weezer.post(where, npm, errorHandler);
+        });
+      } else {
+        return errorHandler(null);
+      }
+    });
+  } else {
+    npm.commands[npm.command](npm.argv, errorHandler);
+  }
 })
 
 })()
